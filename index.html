@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebtiBoard — CRM Platform for Growing Businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { sans: ['Inter', 'sans-serif'] },
+      colors: {
+        brand: '#3F37C9',
+        'brand-hover': '#4f46e5',
+        navy: '#040311',
+        'off-white': '#F8F8FF',
+      }
+    }
+  }
+}
+</script>
+<style>
+.gradient-hero {
+  background: linear-gradient(135deg, #040311 0%, #0d0b2e 50%, #1a1456 100%);
+}
+.gradient-text {
+  background: linear-gradient(135deg, #818cf8, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+
+.browser-frame { background:#1e1e3a; border-radius:12px; overflow:hidden; box-shadow:0 40px 80px rgba(0,0,0,0.4); }
+.browser-bar { background:#13132a; padding:10px 16px; display:flex; align-items:center; gap:6px; border-bottom:1px solid rgba(255,255,255,0.06); }
+.browser-dot { width:10px; height:10px; border-radius:50%; }
+
+.kanban-col { flex:1; border-radius:8px; padding:10px; min-width:0; }
+.kanban-card { border-radius:6px; padding:8px 10px; margin-bottom:6px; font-size:11px; }
+
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.float-anim { animation: float 4s ease-in-out infinite; }
+
+.popular-badge { background: linear-gradient(135deg, #3F37C9, #7c3aed); }
+.section-divider { height:1px; background:linear-gradient(90deg,transparent,rgba(63,55,201,0.3),transparent); }
+
+.icon-bg-indigo  { background: rgba(99,102,241,0.12); }
+.icon-bg-purple  { background: rgba(168,85,247,0.12); }
+.icon-bg-emerald { background: rgba(16,185,129,0.12); }
+.icon-bg-sky     { background: rgba(14,165,233,0.12); }
+.icon-bg-amber   { background: rgba(245,158,11,0.12); }
+.icon-bg-rose    { background: rgba(244,63,94,0.12); }
+</style>
+</head>
+<body class="bg-off-white font-sans text-navy antialiased">
+
+<!-- ═══ NAVBAR ═══ -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-lg bg-brand flex items-center justify-center">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="2" y="2" width="5" height="5" rx="1" fill="white"/>
+          <rect x="9" y="2" width="5" height="5" rx="1" fill="white" opacity="0.7"/>
+          <rect x="2" y="9" width="5" height="5" rx="1" fill="white" opacity="0.7"/>
+          <rect x="9" y="9" width="5" height="5" rx="1" fill="white"/>
+        </svg>
+      </div>
+      <span class="font-bold text-navy text-lg tracking-tight">WebtiBoard</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#features" class="text-sm text-gray-600 hover:text-navy transition-colors">Features</a>
+      <a href="#showcase" class="text-sm text-gray-600 hover:text-navy transition-colors">Demo</a>
+      <a href="#pricing" class="text-sm text-gray-600 hover:text-navy transition-colors">Pricing</a>
+      <a href="#contact" class="text-sm text-gray-600 hover:text-navy transition-colors">Contact</a>
+    </div>
+    <a href="#contact" class="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-brand text-white text-sm font-medium rounded-lg hover:bg-brand-hover transition-colors">
+      Get Started
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="gradient-hero pt-32 pb-24 px-6 relative overflow-hidden">
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-purple-700/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-40 right-0 w-[200px] h-[200px] bg-indigo-500/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="max-w-6xl mx-auto relative">
+    <div class="flex justify-center mb-6">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-xs font-medium">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        Full-stack CRM &middot; Vue 3 + Django &middot; Ready to deploy
+      </span>
+    </div>
+
+    <h1 class="text-center text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-6">
+      The CRM that grows<br>
+      <span class="gradient-text">with your business</span>
+    </h1>
+
+    <p class="text-center text-lg text-white/60 max-w-2xl mx-auto mb-10">
+      Kanban tasks, WooCommerce sync, custom no-code modules, multi-company management —
+      all in one platform. Deployed for you, on your server.
+    </p>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+      <a href="#showcase" class="px-6 py-3 bg-brand text-white font-semibold rounded-xl hover:bg-brand-hover transition-colors flex items-center gap-2 text-sm">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        See it in action
+      </a>
+      <a href="#pricing" class="px-6 py-3 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-colors border border-white/20 text-sm">
+        View pricing
+      </a>
+    </div>
+
+    <!-- Browser mockup — Kanban -->
+    <div class="max-w-4xl mx-auto float-anim">
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dot bg-red-400"></div>
+          <div class="browser-dot bg-yellow-400"></div>
+          <div class="browser-dot bg-green-400"></div>
+          <div class="ml-4 flex-1 bg-white/10 rounded-md h-5 flex items-center px-3">
+            <span class="text-white/40 text-[10px]">https://yourcrm.com/tasks</span>
+          </div>
+        </div>
+        <div class="bg-[#0d0d1a] p-4">
+          <div class="flex gap-3">
+            <!-- Sidebar -->
+            <div class="w-14 bg-[#13132a] rounded-lg flex flex-col items-center py-3 gap-3 flex-shrink-0">
+              <div class="w-7 h-7 rounded-lg bg-brand flex items-center justify-center">
+                <div class="w-3 h-3 grid grid-cols-2 gap-0.5">
+                  <div class="bg-white rounded-[1px]"></div><div class="bg-white/60 rounded-[1px]"></div>
+                  <div class="bg-white/60 rounded-[1px]"></div><div class="bg-white rounded-[1px]"></div>
+                </div>
+              </div>
+              <div class="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center">
+                <div class="w-4 h-0.5 bg-white/40 rounded"></div>
+              </div>
+              <div class="w-7 h-7 rounded-lg bg-white/[0.08] flex items-center justify-center">
+                <div class="w-3 h-3 rounded-sm border border-white/30"></div>
+              </div>
+              <div class="w-7 h-7 rounded-lg bg-white/[0.08] flex items-center justify-center">
+                <div class="w-3 h-3 rounded-full border border-white/30"></div>
+              </div>
+              <div class="mt-auto w-7 h-7 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center">
+                <span class="text-white text-[8px] font-bold">JD</span>
+              </div>
+            </div>
+            <!-- Kanban content -->
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between mb-3">
+                <div>
+                  <div class="text-white text-sm font-semibold">Tasks Board</div>
+                  <div class="text-white/40 text-[10px]">Acme Corporation</div>
+                </div>
+                <div class="px-2 py-1 rounded-md bg-brand text-white text-[10px] font-medium">+ New task</div>
+              </div>
+              <div class="flex gap-2 overflow-hidden">
+                <!-- To Do -->
+                <div class="kanban-col bg-[#1c1c36] flex-1">
+                  <div class="text-[10px] font-semibold text-white/60 uppercase tracking-wider mb-2 flex items-center justify-between">
+                    <span>To Do</span><span class="bg-white/10 px-1.5 rounded-full">3</span>
+                  </div>
+                  <div class="kanban-card bg-[#252550] text-white/80">
+                    <div class="font-medium mb-1">Setup API keys</div>
+                    <div class="flex gap-1.5 items-center">
+                      <span class="px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[9px]">Dev</span>
+                      <div class="ml-auto w-4 h-4 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500"></div>
+                    </div>
+                  </div>
+                  <div class="kanban-card bg-[#252550] text-white/80">
+                    <div class="font-medium mb-1">Design homepage</div>
+                    <div class="flex gap-1.5"><span class="px-1.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[9px]">Design</span></div>
+                  </div>
+                  <div class="kanban-card bg-[#252550] text-white/80">
+                    <div class="font-medium">Write docs</div>
+                  </div>
+                </div>
+                <!-- In Progress -->
+                <div class="kanban-col bg-[#1c1c36] flex-1">
+                  <div class="text-[10px] font-semibold text-amber-400/80 uppercase tracking-wider mb-2 flex items-center justify-between">
+                    <span>In Progress</span><span class="bg-amber-500/20 px-1.5 rounded-full text-amber-300">2</span>
+                  </div>
+                  <div class="kanban-card bg-[#252550] border-l-2 border-amber-400 text-white/80">
+                    <div class="font-medium mb-1">Client meeting prep</div>
+                    <div class="flex gap-1.5 items-center">
+                      <span class="px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[9px]">High</span>
+                      <div class="ml-auto flex -space-x-1">
+                        <div class="w-4 h-4 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 border border-[#252550]"></div>
+                        <div class="w-4 h-4 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 border border-[#252550]"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="kanban-card bg-[#252550] border-l-2 border-amber-400 text-white/80">
+                    <div class="font-medium mb-1">Integrate payments</div>
+                    <div class="w-full bg-white/10 rounded-full h-1 mt-2">
+                      <div class="bg-amber-400 h-1 rounded-full" style="width:65%"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Done -->
+                <div class="kanban-col bg-[#1c1c36] flex-1">
+                  <div class="text-[10px] font-semibold text-emerald-400/80 uppercase tracking-wider mb-2 flex items-center justify-between">
+                    <span>Done</span><span class="bg-emerald-500/20 px-1.5 rounded-full text-emerald-300">4</span>
+                  </div>
+                  <div class="kanban-card bg-[#1e2e28] text-white/50">
+                    <div class="font-medium mb-1 line-through">User auth</div>
+                    <span class="px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 text-[9px]">Done</span>
+                  </div>
+                  <div class="kanban-card bg-[#1e2e28] text-white/50">
+                    <div class="font-medium line-through">Database schema</div>
+                  </div>
+                  <div class="kanban-card bg-[#1e2e28] text-white/50">
+                    <div class="font-medium line-through">CI/CD pipeline</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STATS BAR ═══ -->
+<section class="bg-navy py-8 px-6">
+  <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
+    <div class="text-center">
+      <div class="text-2xl font-bold text-white">10+</div>
+      <div class="text-white/50 text-sm">Core modules</div>
+    </div>
+    <div class="text-center">
+      <div class="text-2xl font-bold text-white">EN / FR</div>
+      <div class="text-white/50 text-sm">Bilingual UI</div>
+    </div>
+    <div class="text-center">
+      <div class="text-2xl font-bold text-white">REST</div>
+      <div class="text-white/50 text-sm">Full API backend</div>
+    </div>
+    <div class="text-center">
+      <div class="text-2xl font-bold text-white">&#8734;</div>
+      <div class="text-white/50 text-sm">Custom modules</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURES ═══ -->
+<section id="features" class="py-24 px-6 bg-off-white">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-block px-3 py-1 text-xs font-semibold text-brand bg-brand/10 rounded-full mb-4 uppercase tracking-wider">Everything included</span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-navy mb-4">One platform. All the tools.</h2>
+      <p class="text-gray-500 max-w-xl mx-auto">From task management to e-commerce, every module is built-in and ready to use out of the box.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-white rounded-2xl p-6 card-hover border border-gray-100 shadow-sm">
+        <div class="w-11 h-11 icon-bg-indigo rounded-xl flex items-center justify-center mb-4">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <rect x="2" y="3" width="5" height="16" rx="2" fill="#6366f1" opacity="0.3"/>
+            <rect x="8.5" y="3" width="5" height="10" rx="2" fill="#6366f1" opacity="0.6"/>
+            <rect x="15" y="3" width="5" height="13" rx="2" fill="#6366f1"/>
+          </svg>
+        </div>
+        <h3 class="font-semibold text-navy mb-2">Kanban Task Board</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Visual task management with custom stages, assignees, priorities, progress tracking and a full-featured task drawer with rich text editor.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 card-hover border border-gray-100 shadow-sm">
+        <div class="w-11 h-11 icon-bg-purple rounded-xl flex items-center justify-center mb-4">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <rect x="3" y="3" width="7" height="7" rx="1.5" fill="#a855f7" opacity="0.4"/>
+            <rect x="12" y="3" width="7" height="7" rx="1.5" fill="#a855f7" opacity="0.7"/>
+            <rect x="3" y="12" width="7" height="7" rx="1.5" fill="#a855f7" opacity="0.7"/>
+            <rect x="12" y="12" width="7" height="7" rx="1.5" fill="#a855f7"/>
+          </svg>
+        </div>
+        <h3 class="font-semibold text-navy mb-2">No-Code Module Builder</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Build any custom data module — real estate listings, inventory, client records — using a visual field builder. No development required.</p>
+        <span class="inline-block mt-3 px-2 py-0.5 bg-purple-50 text-purple-600 text-xs font-medium rounded-full">Killer feature</span>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 card-hover border border-gray-100 shadow-sm">
+        <div class="w-11 h-11 icon-bg-emerald rounded-xl flex items-center justify-center mb-4">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M3 4h2l2.5 10h9l2-7H7.5" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="10" cy="17" r="1.5" fill="#10b981"/>
+            <circle cx="16" cy="17" r="1.5" fill="#10b981"/>
+          </svg>
+        </div>
+        <h3 class="font-semibold text-navy mb-2">WooCommerce Integration</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Two-way sync with WooCommerce. Manage products, track orders, view revenue statistics, and get low-stock alerts — all from the CRM.</p>
+        <span class="inline-block mt-3 px-2 py-0.5 bg-emerald-50 text-emerald-600 text-xs font-medium rounded-full">Add-on module</span>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 card-hover border border-gray-100 shadow-sm">
+        <div class="w-11 h-11 icon-bg-sky rounded-xl flex items-center justify-center mb-4">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <rect x="3" y="5" width="16" height="14" rx="2" stroke="#0ea5e9" stroke-width="1.5"/>
+            <path d="M3 9h16M8 3v4M14 3v4" stroke="#0ea5e9" stroke-width="1.5" stroke-linecap="round"/>
+            <rect x="7" y="12" width="3" height="3" rx="0.5" fill="#0ea5e9" opacity="0.6"/>
+            <rect x="12" y="12" width="3" height="3" rx="0.5" fill="#0ea5e9" opacity="0.9"/>
+          </svg>
+        </div>
+        <h3 class="font-semibold text-navy mb-2">Calendar &amp; Events</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Team calendar with event scheduling, full CRUD management, and a clean modal interface for quick event creation.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 card-hover border border-gray-100 shadow-sm">
+        <div class="w-11 h-11 icon-bg-amber rounded-xl flex items-center justify-center mb-4">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <circle cx="8" cy="8" r="3" stroke="#f59e0b" stroke-width="1.5"/>
+            <circle cx="15" cy="12" r="2.5" stroke="#f59e0b" stroke-width="1.5" opacity="0.6"/>
+            <path d="M3 18c0-2.5 2.2-4 5-4s5 1.5 5 4" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M16 16.5c1.2.3 2 1 2 2.5" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+          </svg>
+        </div>
+        <h3 class="font-semibold text-navy mb-2">Multi-Company + Roles</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Manage multiple companies with isolated data, granular role-based permissions, team management, and a company switcher in the nav.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 card-hover border border-gray-100 shadow-sm">
+        <div class="w-11 h-11 icon-bg-rose rounded-xl flex items-center justify-center mb-4">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M5 6h12M5 10h8M5 14h10M5 18h6" stroke="#f43f5e" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="font-semibold text-navy mb-2">Activity Logs &amp; Audit</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Full audit trail of every action — who did what and when. Export to Excel, CSV, or PDF. Live auto-refresh with filter by user or date.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider mx-auto max-w-4xl"></div>
+
+<!-- ═══ SHOWCASE ═══ -->
+<section id="showcase" class="py-24 px-6 bg-off-white">
+  <div class="max-w-6xl mx-auto space-y-28">
+
+    <!-- 1: Custom Modules -->
+    <div class="flex flex-col lg:flex-row items-center gap-12">
+      <div class="flex-1">
+        <span class="inline-block px-3 py-1 text-xs font-semibold text-purple-600 bg-purple-50 rounded-full mb-4 uppercase tracking-wider">No-code builder</span>
+        <h2 class="text-3xl font-bold text-navy mb-4">Build any module<br>without writing a line of code</h2>
+        <p class="text-gray-500 mb-6 leading-relaxed">Define custom fields, create records, import from Excel, and get a full-featured data module — in minutes. Works for any business type.</p>
+        <ul class="space-y-3">
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <div class="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#9333ea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            12+ field types: text, number, select, date, currency, file, color...
+          </li>
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <div class="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#9333ea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Bulk import from Excel with automatic field mapping
+          </li>
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <div class="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#9333ea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Every module gets its own page, filters, and stats panel
+          </li>
+        </ul>
+      </div>
+      <div class="flex-1 w-full">
+        <div class="browser-frame">
+          <div class="browser-bar">
+            <div class="browser-dot bg-red-400"></div>
+            <div class="browser-dot bg-yellow-400"></div>
+            <div class="browser-dot bg-green-400"></div>
+            <span class="ml-3 text-white/30 text-[10px]">Module Builder</span>
+          </div>
+          <div class="bg-[#0d0d1a] p-4">
+            <div class="text-white/70 text-xs font-semibold mb-3">New Module: Real Estate</div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2 bg-[#1c1c36] rounded-lg px-3 py-2">
+                <div class="w-5 h-5 rounded bg-blue-500/20 flex items-center justify-center text-blue-300 text-[9px] font-bold flex-shrink-0">T</div>
+                <span class="text-white/70 text-xs flex-1">Property Name</span>
+                <span class="text-white/30 text-[10px]">text</span>
+              </div>
+              <div class="flex items-center gap-2 bg-[#1c1c36] rounded-lg px-3 py-2">
+                <div class="w-5 h-5 rounded bg-green-500/20 flex items-center justify-center text-green-300 text-[9px] font-bold flex-shrink-0">$</div>
+                <span class="text-white/70 text-xs flex-1">Price</span>
+                <span class="text-white/30 text-[10px]">currency</span>
+              </div>
+              <div class="flex items-center gap-2 bg-[#1c1c36] rounded-lg px-3 py-2">
+                <div class="w-5 h-5 rounded bg-purple-500/20 flex items-center justify-center text-purple-300 text-[9px] font-bold flex-shrink-0">&#9660;</div>
+                <span class="text-white/70 text-xs flex-1">Status</span>
+                <span class="text-white/30 text-[10px]">select</span>
+              </div>
+              <div class="flex items-center gap-2 bg-[#1c1c36] rounded-lg px-3 py-2">
+                <div class="w-5 h-5 rounded bg-amber-500/20 flex items-center justify-center text-amber-300 text-[9px] flex-shrink-0">&#128197;</div>
+                <span class="text-white/70 text-xs flex-1">Listed Date</span>
+                <span class="text-white/30 text-[10px]">date</span>
+              </div>
+              <div class="flex items-center gap-2 border-2 border-dashed border-white/10 rounded-lg px-3 py-2">
+                <span class="text-white/30 text-xs">+ Add field</span>
+              </div>
+            </div>
+            <div class="flex gap-2 mt-3">
+              <div class="flex-1 text-center py-1.5 rounded-lg bg-brand text-white text-[11px] font-medium">Create Module</div>
+              <div class="px-3 py-1.5 rounded-lg bg-white/5 text-white/40 text-[11px]">Cancel</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2: E-Commerce -->
+    <div class="flex flex-col lg:flex-row-reverse items-center gap-12">
+      <div class="flex-1">
+        <span class="inline-block px-3 py-1 text-xs font-semibold text-emerald-600 bg-emerald-50 rounded-full mb-4 uppercase tracking-wider">Add-on module</span>
+        <h2 class="text-3xl font-bold text-navy mb-4">WooCommerce.<br>Fully synced &amp; managed.</h2>
+        <p class="text-gray-500 mb-6 leading-relaxed">Connect your WordPress store and manage everything from one dashboard. Products, orders, statistics, inventory, and future product scheduling.</p>
+        <ul class="space-y-3">
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Real-time product sync — price, stock, status, descriptions
+          </li>
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Order management with status tracking and customer details
+          </li>
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Revenue charts, low-stock alerts, bulk Excel import
+          </li>
+        </ul>
+      </div>
+      <div class="flex-1 w-full">
+        <div class="browser-frame">
+          <div class="browser-bar">
+            <div class="browser-dot bg-red-400"></div>
+            <div class="browser-dot bg-yellow-400"></div>
+            <div class="browser-dot bg-green-400"></div>
+            <span class="ml-3 text-white/30 text-[10px]">E-Commerce &middot; Products</span>
+          </div>
+          <div class="bg-[#0d0d1a] p-4">
+            <div class="grid grid-cols-3 gap-2 mb-3">
+              <div class="bg-[#1c1c36] rounded-lg p-2.5">
+                <div class="text-white/40 text-[9px] mb-1">Revenue</div>
+                <div class="text-white text-sm font-bold">$48,320</div>
+                <div class="text-emerald-400 text-[9px]">&#8593; 12% this month</div>
+              </div>
+              <div class="bg-[#1c1c36] rounded-lg p-2.5">
+                <div class="text-white/40 text-[9px] mb-1">Orders</div>
+                <div class="text-white text-sm font-bold">284</div>
+                <div class="text-blue-400 text-[9px]">&#8593; 8 today</div>
+              </div>
+              <div class="bg-[#1c1c36] rounded-lg p-2.5">
+                <div class="text-white/40 text-[9px] mb-1">Products</div>
+                <div class="text-white text-sm font-bold">1,247</div>
+                <div class="text-amber-400 text-[9px]">&#9888; 3 low stock</div>
+              </div>
+            </div>
+            <div class="bg-[#1c1c36] rounded-lg overflow-hidden">
+              <div class="grid grid-cols-4 gap-2 px-3 py-2 text-[9px] text-white/30 uppercase tracking-wider border-b border-white/5">
+                <span>Product</span><span>Price</span><span>Stock</span><span>Status</span>
+              </div>
+              <div class="grid grid-cols-4 gap-2 px-3 py-2 text-[10px] text-white/70 border-b border-white/5 items-center">
+                <span class="truncate">Blue Sneakers</span><span>$89.00</span><span>124</span>
+                <span class="px-1.5 py-0.5 rounded-full bg-green-500/20 text-green-300 text-[9px] w-fit">Active</span>
+              </div>
+              <div class="grid grid-cols-4 gap-2 px-3 py-2 text-[10px] text-white/70 border-b border-white/5 items-center">
+                <span class="truncate">Red T-Shirt</span><span>$24.99</span><span class="text-amber-400">2 &#9888;</span>
+                <span class="px-1.5 py-0.5 rounded-full bg-green-500/20 text-green-300 text-[9px] w-fit">Active</span>
+              </div>
+              <div class="grid grid-cols-4 gap-2 px-3 py-2 text-[10px] text-white/70 items-center">
+                <span class="truncate">Leather Bag</span><span>$149.00</span><span>37</span>
+                <span class="px-1.5 py-0.5 rounded-full bg-gray-500/20 text-gray-400 text-[9px] w-fit">Draft</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3: Activity Logs -->
+    <div class="flex flex-col lg:flex-row items-center gap-12">
+      <div class="flex-1">
+        <span class="inline-block px-3 py-1 text-xs font-semibold text-rose-600 bg-rose-50 rounded-full mb-4 uppercase tracking-wider">Audit trail</span>
+        <h2 class="text-3xl font-bold text-navy mb-4">Know exactly<br>who did what and when</h2>
+        <p class="text-gray-500 mb-6 leading-relaxed">Every action in the CRM is logged automatically. Filter by user, date range, or company. Export to Excel, CSV, or PDF in seconds.</p>
+        <ul class="space-y-3">
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <div class="w-5 h-5 rounded-full bg-rose-100 flex items-center justify-center flex-shrink-0">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#e11d48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Live updates every 15 seconds — no page refresh needed
+          </li>
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <div class="w-5 h-5 rounded-full bg-rose-100 flex items-center justify-center flex-shrink-0">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#e11d48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Separate log feeds per company — full data isolation
+          </li>
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <div class="w-5 h-5 rounded-full bg-rose-100 flex items-center justify-center flex-shrink-0">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#e11d48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Export with date range and per-user filtering
+          </li>
+        </ul>
+      </div>
+      <div class="flex-1 w-full">
+        <div class="browser-frame">
+          <div class="browser-bar">
+            <div class="browser-dot bg-red-400"></div>
+            <div class="browser-dot bg-yellow-400"></div>
+            <div class="browser-dot bg-green-400"></div>
+            <span class="ml-3 text-white/30 text-[10px]">Activity Logs</span>
+          </div>
+          <div class="bg-[#0d0d1a] p-4">
+            <div class="space-y-2">
+              <div class="flex items-center gap-3 bg-[#1c1c36] rounded-lg px-3 py-2">
+                <div class="w-6 h-6 rounded-full bg-indigo-500/30 flex items-center justify-center text-indigo-300 text-[9px] font-bold flex-shrink-0">JD</div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-white/80 text-[10px] font-medium">John Doe</div>
+                  <div class="text-white/40 text-[9px] truncate">Updated product "Blue Sneakers" — price changed</div>
+                </div>
+                <span class="flex-shrink-0 px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[9px]">&#9998; Updated</span>
+              </div>
+              <div class="flex items-center gap-3 bg-[#1c1c36] rounded-lg px-3 py-2">
+                <div class="w-6 h-6 rounded-full bg-pink-500/30 flex items-center justify-center text-pink-300 text-[9px] font-bold flex-shrink-0">AM</div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-white/80 text-[10px] font-medium">Alice Martin</div>
+                  <div class="text-white/40 text-[9px] truncate">Added member "Bob" to "Acme Corp"</div>
+                </div>
+                <span class="flex-shrink-0 px-1.5 py-0.5 rounded-full bg-teal-500/20 text-teal-300 text-[9px]">&#128100; Member</span>
+              </div>
+              <div class="flex items-center gap-3 bg-[#1c1c36] rounded-lg px-3 py-2">
+                <div class="w-6 h-6 rounded-full bg-amber-500/30 flex items-center justify-center text-amber-300 text-[9px] font-bold flex-shrink-0">KL</div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-white/80 text-[10px] font-medium">Kate Lee</div>
+                  <div class="text-white/40 text-[9px] truncate">Imported Products (42 created, 8 updated)</div>
+                </div>
+                <span class="flex-shrink-0 px-1.5 py-0.5 rounded-full bg-violet-500/20 text-violet-300 text-[9px]">&#8593; Imported</span>
+              </div>
+              <div class="flex items-center gap-3 bg-[#1c1c36] rounded-lg px-3 py-2">
+                <div class="w-6 h-6 rounded-full bg-green-500/30 flex items-center justify-center text-green-300 text-[9px] font-bold flex-shrink-0">MR</div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-white/80 text-[10px] font-medium">Mark Rogers</div>
+                  <div class="text-white/40 text-[9px] truncate">Created task "Q4 Campaign Planning"</div>
+                </div>
+                <span class="flex-shrink-0 px-1.5 py-0.5 rounded-full bg-green-500/20 text-green-300 text-[9px]">+ Created</span>
+              </div>
+            </div>
+            <div class="mt-3 text-center">
+              <span class="text-white/20 text-[10px]">&#9679; Live &middot; updates every 15s</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ KANBAN DEEP DIVE ═══ -->
+<section class="py-24 px-6 bg-navy relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-900/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-purple-900/20 rounded-full blur-3xl"></div>
+  </div>
+  <div class="max-w-6xl mx-auto relative">
+    <div class="text-center mb-16">
+      <span class="inline-block px-3 py-1 text-xs font-semibold text-indigo-400 bg-indigo-500/15 rounded-full mb-4 uppercase tracking-wider">Task management</span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Kanban board — everything your team needs</h2>
+      <p class="text-white/50 max-w-xl mx-auto">From quick task cards to detailed drawers with rich text, attachments, assignees and progress tracking.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8 items-start">
+      <!-- Feature list -->
+      <div class="space-y-5">
+        <div class="flex gap-4 bg-white/5 rounded-2xl p-5 border border-white/8">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center flex-shrink-0">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="3" width="4" height="14" rx="1.5" fill="#818cf8" opacity="0.4"/><rect x="8" y="3" width="4" height="9" rx="1.5" fill="#818cf8" opacity="0.7"/><rect x="14" y="3" width="4" height="12" rx="1.5" fill="#818cf8"/></svg>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-1">Custom stages</h4>
+            <p class="text-white/50 text-sm">Create, rename, reorder and delete any column. Each stage has its own color and task counter.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 bg-white/5 rounded-2xl p-5 border border-white/8">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center flex-shrink-0">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" stroke="#c084fc" stroke-width="1.5"/><path d="M4 17c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5" stroke="#c084fc" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-1">Assignees &amp; avatars</h4>
+            <p class="text-white/50 text-sm">Assign multiple team members per task. Avatar stack shows at a glance who is responsible.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 bg-white/5 rounded-2xl p-5 border border-white/8">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center flex-shrink-0">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3v14M3 10l7 7 7-7" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-1">Priority &amp; progress</h4>
+            <p class="text-white/50 text-sm">Low / Medium / High / Urgent priorities with color coding. Per-task progress bar from 0–100%.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 bg-white/5 rounded-2xl p-5 border border-white/8">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="12" rx="2" stroke="#34d399" stroke-width="1.5"/><path d="M3 8h14" stroke="#34d399" stroke-width="1.5"/><path d="M7 4V3M13 4V3" stroke="#34d399" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-1">Task drawer with rich text</h4>
+            <p class="text-white/50 text-sm">Open any task in a side drawer. Full WYSIWYG editor for descriptions, due dates, tags, and activity history.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Task drawer mockup -->
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dot bg-red-400"></div>
+          <div class="browser-dot bg-yellow-400"></div>
+          <div class="browser-dot bg-green-400"></div>
+          <span class="ml-3 text-white/30 text-[10px]">Task Detail Drawer</span>
+        </div>
+        <div class="bg-[#0d0d1a] p-4">
+          <!-- Task header -->
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[9px] font-semibold flex items-center gap-1">&#9650; High</span>
+                <span class="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[9px]">In Progress</span>
+              </div>
+              <div class="text-white font-semibold text-sm">Client onboarding flow redesign</div>
+            </div>
+          </div>
+          <!-- Progress -->
+          <div class="mb-4">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-white/40 text-[9px] uppercase tracking-wider">Progress</span>
+              <span class="text-white/60 text-[10px] font-semibold">65%</span>
+            </div>
+            <div class="w-full bg-white/10 rounded-full h-1.5">
+              <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-1.5 rounded-full" style="width:65%"></div>
+            </div>
+          </div>
+          <!-- Assignees -->
+          <div class="mb-4">
+            <div class="text-white/40 text-[9px] uppercase tracking-wider mb-2">Assignees</div>
+            <div class="flex items-center gap-2">
+              <div class="flex -space-x-1.5">
+                <div class="w-7 h-7 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 border-2 border-[#0d0d1a] flex items-center justify-center text-[9px] font-bold text-white">AM</div>
+                <div class="w-7 h-7 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 border-2 border-[#0d0d1a] flex items-center justify-center text-[9px] font-bold text-white">JD</div>
+                <div class="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-400 to-green-500 border-2 border-[#0d0d1a] flex items-center justify-center text-[9px] font-bold text-white">KL</div>
+              </div>
+              <span class="text-white/30 text-[10px]">+ Add member</span>
+            </div>
+          </div>
+          <!-- Due date -->
+          <div class="mb-4 flex items-center gap-3">
+            <div class="flex-1 bg-[#1c1c36] rounded-lg px-3 py-2">
+              <div class="text-white/40 text-[9px] mb-0.5">Due date</div>
+              <div class="text-white/70 text-[10px]">Jun 15, 2025</div>
+            </div>
+            <div class="flex-1 bg-[#1c1c36] rounded-lg px-3 py-2">
+              <div class="text-white/40 text-[9px] mb-0.5">Stage</div>
+              <div class="text-amber-300 text-[10px]">In Progress</div>
+            </div>
+          </div>
+          <!-- Description -->
+          <div class="bg-[#1c1c36] rounded-lg p-3">
+            <div class="text-white/40 text-[9px] uppercase tracking-wider mb-2">Description</div>
+            <div class="text-white/60 text-[10px] leading-relaxed">Redesign the onboarding screens for new clients. Focus on reducing friction in the first 3 steps. <span class="text-white/30">Figma link attached...</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMPANIES & ROLES DEEP DIVE ═══ -->
+<section class="py-24 px-6 bg-off-white">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-block px-3 py-1 text-xs font-semibold text-amber-600 bg-amber-50 rounded-full mb-4 uppercase tracking-wider">Multi-company</span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-navy mb-4">Manage multiple companies.<br>Full isolation. Granular roles.</h2>
+      <p class="text-gray-500 max-w-xl mx-auto">Each company has its own data, members, and permissions. Switch between companies in one click without logging out.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-6 mb-12">
+      <!-- Company card mockup -->
+      <div class="lg:col-span-2">
+        <div class="browser-frame">
+          <div class="browser-bar">
+            <div class="browser-dot bg-red-400"></div>
+            <div class="browser-dot bg-yellow-400"></div>
+            <div class="browser-dot bg-green-400"></div>
+            <span class="ml-3 text-white/30 text-[10px]">Companies</span>
+          </div>
+          <div class="bg-[#0d0d1a] p-4 space-y-3">
+            <!-- Company 1 -->
+            <div class="bg-[#1c1c36] rounded-xl p-4">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm">A</div>
+                  <div>
+                    <div class="text-white text-sm font-semibold">Acme Corporation</div>
+                    <div class="text-white/40 text-[10px]">acme.com &bull; 8 members</div>
+                  </div>
+                </div>
+                <div class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[9px] font-semibold">Active</div>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="flex -space-x-1.5">
+                  <div class="w-6 h-6 rounded-full bg-pink-400 border-2 border-[#1c1c36] flex items-center justify-center text-[8px] font-bold text-white">J</div>
+                  <div class="w-6 h-6 rounded-full bg-blue-400 border-2 border-[#1c1c36] flex items-center justify-center text-[8px] font-bold text-white">A</div>
+                  <div class="w-6 h-6 rounded-full bg-emerald-400 border-2 border-[#1c1c36] flex items-center justify-center text-[8px] font-bold text-white">K</div>
+                  <div class="w-6 h-6 rounded-full bg-white/15 border-2 border-[#1c1c36] flex items-center justify-center text-[8px] text-white/50">+5</div>
+                </div>
+                <div class="ml-auto flex gap-1.5">
+                  <span class="px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-300 text-[9px]">1 Owner</span>
+                  <span class="px-2 py-0.5 rounded-full bg-red-500/15 text-red-300 text-[9px]">2 Admins</span>
+                  <span class="px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300 text-[9px]">5 Users</span>
+                </div>
+              </div>
+            </div>
+            <!-- Company 2 -->
+            <div class="bg-[#1c1c36] rounded-xl p-4">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-bold text-sm">G</div>
+                  <div>
+                    <div class="text-white text-sm font-semibold">GreenLeaf Studio</div>
+                    <div class="text-white/40 text-[10px]">greenleaf.io &bull; 3 members</div>
+                  </div>
+                </div>
+                <div class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[9px] font-semibold">Active</div>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="flex -space-x-1.5">
+                  <div class="w-6 h-6 rounded-full bg-orange-400 border-2 border-[#1c1c36] flex items-center justify-center text-[8px] font-bold text-white">M</div>
+                  <div class="w-6 h-6 rounded-full bg-violet-400 border-2 border-[#1c1c36] flex items-center justify-center text-[8px] font-bold text-white">S</div>
+                  <div class="w-6 h-6 rounded-full bg-rose-400 border-2 border-[#1c1c36] flex items-center justify-center text-[8px] font-bold text-white">L</div>
+                </div>
+                <div class="ml-auto flex gap-1.5">
+                  <span class="px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-300 text-[9px]">1 Owner</span>
+                  <span class="px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300 text-[9px]">2 Users</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Role features -->
+      <div class="space-y-4">
+        <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="px-2.5 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold">Owner</span>
+          </div>
+          <p class="text-gray-500 text-sm">Full access. Can manage members, roles, all modules, billing settings and company configuration.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="px-2.5 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">Admin</span>
+          </div>
+          <p class="text-gray-500 text-sm">Can manage content and users within a company. Cannot change company settings or billing.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">User</span>
+          </div>
+          <p class="text-gray-500 text-sm">Standard access. Can create and edit records within their assigned company and modules only.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+          <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center mb-2">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h4 class="text-navy font-semibold text-sm mb-1">Data isolation</h4>
+          <p class="text-gray-500 text-sm">Each company&apos;s tasks, records, logs and settings are completely isolated. Users only see what they&apos;re assigned to.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Permission matrix -->
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-100">
+        <h3 class="font-semibold text-navy">Permission matrix</h3>
+        <p class="text-gray-400 text-sm mt-0.5">What each role can do across modules</p>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Module / Action</th>
+              <th class="px-4 py-3 text-center text-xs font-semibold text-purple-500 uppercase tracking-wider">Owner</th>
+              <th class="px-4 py-3 text-center text-xs font-semibold text-red-500 uppercase tracking-wider">Admin</th>
+              <th class="px-4 py-3 text-center text-xs font-semibold text-blue-500 uppercase tracking-wider">User</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-50">
+            <tr class="hover:bg-gray-50/50">
+              <td class="px-6 py-3 text-gray-700 font-medium">Tasks — create &amp; edit</td>
+              <td class="px-4 py-3 text-center"><span class="text-emerald-500 font-bold">&#10003;</span></td>
+              <td class="px-4 py-3 text-center"><span class="text-emerald-500 font-bold">&#10003;</span></td>
+              <td class="px-4 py-3 text-center"><span class="text-emerald-500 font-bold">&#10003;</span></td>
+            </tr>
+            <tr class="hover:bg-gray-50/50">
+              <td class="px-6 py-3 text-gray-700 font-medium">Tasks — delete stages</td>
+              <td class="px-4 py-3 text-center"><span class="text-emerald-500 font-bold">&#10003;</span></td>
+              <td class="px-4 py-3 text-center"><span class="text-emerald-500 font-bold">&#10003;</span></td>
+              <td class="px-4 py-3 text-center"><span class="text-gray-300 font-bold">&#10005;</span></td>
+            </tr>
+            <tr class="hover:bg-gray-50/50">
+              <td class="px-6 py-3 text-gray-700 font-medium">Custom modules — build new</td>
+              <td class="px-4 py-3 text-center"><span class="text-emerald-500 font-bold">&#10003;</span></td>
+              <td class="px-4 py-3 text-center"><span class="text-emerald-500 font-bold">&#10003;</span></td>
+              <td class="px-4 py-3 text-center"><span class="text-gray-300 font-bold">&#10005;</span></td>
+            </tr>
+            <tr class="hover:bg-gray-50/50">
+              <td class="px-6 py-3 text-gray-700 font-medium">E-Commerce — sync &amp; edit products</td>
+              <td class="px-4 py-3 text-center"><span class="text-emerald-500 font-bold">&#10003;</span></td>
+              <td class="px-4 py-3 text-center"><span class="text-emerald-500 font-bold">&#10003;</span></td>
+              <td class="px-4 py-3 text-center"><span class="text-gray-300 font-bold">&#10005;</span></td>
+            </tr>
+            <tr class="hover:bg-gray-50/50">
+              <td class="px-6 py-3 text-gray-700 font-medium">Users — invite &amp; remove</td>
+              <td class="px-4 py-3 text-center"><span class="text-emerald-500 font-bold">&#10003;</span></td>
+              <td class="px-4 py-3 text-center"><span class="text-emerald-500 font-bold">&#10003;</span></td>
+              <td class="px-4 py-3 text-center"><span class="text-gray-300 font-bold">&#10005;</span></td>
+            </tr>
+            <tr class="hover:bg-gray-50/50">
+              <td class="px-6 py-3 text-gray-700 font-medium">Activity Logs — export</td>
+              <td class="px-4 py-3 text-center"><span class="text-emerald-500 font-bold">&#10003;</span></td>
+              <td class="px-4 py-3 text-center"><span class="text-emerald-500 font-bold">&#10003;</span></td>
+              <td class="px-4 py-3 text-center"><span class="text-gray-300 font-bold">&#10005;</span></td>
+            </tr>
+            <tr class="hover:bg-gray-50/50">
+              <td class="px-6 py-3 text-gray-700 font-medium">Company settings</td>
+              <td class="px-4 py-3 text-center"><span class="text-emerald-500 font-bold">&#10003;</span></td>
+              <td class="px-4 py-3 text-center"><span class="text-gray-300 font-bold">&#10005;</span></td>
+              <td class="px-4 py-3 text-center"><span class="text-gray-300 font-bold">&#10005;</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WOOCOMMERCE DEEP DIVE ═══ -->
+<section class="py-24 px-6 bg-navy relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-0 left-0 w-[400px] h-[400px] bg-emerald-900/15 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 w-[300px] h-[300px] bg-teal-900/15 rounded-full blur-3xl"></div>
+  </div>
+  <div class="max-w-6xl mx-auto relative">
+    <div class="text-center mb-16">
+      <span class="inline-block px-3 py-1 text-xs font-semibold text-emerald-400 bg-emerald-500/15 rounded-full mb-4 uppercase tracking-wider">E-Commerce module</span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">WooCommerce integration — every tab explained</h2>
+      <p class="text-white/50 max-w-xl mx-auto">8 dedicated tabs covering every aspect of your store, all synced in real time.</p>
+    </div>
+
+    <!-- Tab showcase grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+      <div class="bg-white/5 rounded-2xl p-5 border border-white/8 hover:border-emerald-500/30 transition-colors">
+        <div class="w-9 h-9 rounded-xl bg-emerald-500/20 flex items-center justify-center mb-3">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="1.5" stroke="#34d399" stroke-width="1.5"/><path d="M5 7h8M5 10h5" stroke="#34d399" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <h4 class="text-white font-semibold text-sm mb-1">Products</h4>
+        <p class="text-white/45 text-xs leading-relaxed">Full product table with inline editing, image preview, SKU, price, stock, categories, tags and status. Bulk actions, column sort, search and filter by category or status.</p>
+      </div>
+      <div class="bg-white/5 rounded-2xl p-5 border border-white/8 hover:border-blue-500/30 transition-colors">
+        <div class="w-9 h-9 rounded-xl bg-blue-500/20 flex items-center justify-center mb-3">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3h2l2 8h7l2-6H6" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="14.5" r="1.2" fill="#60a5fa"/><circle cx="13.5" cy="14.5" r="1.2" fill="#60a5fa"/></svg>
+        </div>
+        <h4 class="text-white font-semibold text-sm mb-1">Orders</h4>
+        <p class="text-white/45 text-xs leading-relaxed">View all orders with customer name, total, item count, date, and payment/fulfillment status. Filter by order status (pending, processing, completed, cancelled, refunded).</p>
+      </div>
+      <div class="bg-white/5 rounded-2xl p-5 border border-white/8 hover:border-violet-500/30 transition-colors">
+        <div class="w-9 h-9 rounded-xl bg-violet-500/20 flex items-center justify-center mb-3">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 13l3.5-4 3 3 3-5 3 4" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4 class="text-white font-semibold text-sm mb-1">Statistics</h4>
+        <p class="text-white/45 text-xs leading-relaxed">Revenue charts (bar, line, pie), completed vs pending breakdown, top products by sales, average order value, daily/monthly views. Multiple chart types selectable.</p>
+      </div>
+      <div class="bg-white/5 rounded-2xl p-5 border border-white/8 hover:border-amber-500/30 transition-colors">
+        <div class="w-9 h-9 rounded-xl bg-amber-500/20 flex items-center justify-center mb-3">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 3v10M5 9l4 4 4-4" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="14" width="12" height="1.5" rx="0.75" fill="#fbbf24" opacity="0.4"/></svg>
+        </div>
+        <h4 class="text-white font-semibold text-sm mb-1">Import / Export</h4>
+        <p class="text-white/45 text-xs leading-relaxed">Bulk import products from Excel with smart column mapping. Export current product list to CSV. Sync status shows created / updated / skipped counts after each import.</p>
+      </div>
+      <div class="bg-white/5 rounded-2xl p-5 border border-white/8 hover:border-orange-500/30 transition-colors">
+        <div class="w-9 h-9 rounded-xl bg-orange-500/20 flex items-center justify-center mb-3">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="#fb923c" stroke-width="1.5"/><path d="M9 6v3.5l2.5 1.5" stroke="#fb923c" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4 class="text-white font-semibold text-sm mb-1">Future Products</h4>
+        <p class="text-white/45 text-xs leading-relaxed">Schedule products to be published at a future date. See upcoming releases in a dedicated list, separate from live inventory. Plan launches without affecting current store.</p>
+      </div>
+      <div class="bg-white/5 rounded-2xl p-5 border border-white/8 hover:border-red-500/30 transition-colors">
+        <div class="w-9 h-9 rounded-xl bg-red-500/20 flex items-center justify-center mb-3">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 5h10M7 5V4h4v1M6 5l.5 9h5L12 5" stroke="#f87171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4 class="text-white font-semibold text-sm mb-1">Trash</h4>
+        <p class="text-white/45 text-xs leading-relaxed">Deleted products are moved to trash, not permanently removed. Restore single products or bulk-restore. Permanent delete available from trash view only.</p>
+      </div>
+      <div class="bg-white/5 rounded-2xl p-5 border border-white/8 hover:border-rose-500/30 transition-colors">
+        <div class="w-9 h-9 rounded-xl bg-rose-500/20 flex items-center justify-center mb-3">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 3v3M9 12v3M3 9h3M12 9h3" stroke="#fb7185" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="9" r="2.5" stroke="#fb7185" stroke-width="1.5"/></svg>
+        </div>
+        <h4 class="text-white font-semibold text-sm mb-1">Low Stock Alerts</h4>
+        <p class="text-white/45 text-xs leading-relaxed">Automatically highlights products below your defined stock threshold. Separate tab dedicated to low-stock items so nothing falls through the cracks.</p>
+      </div>
+      <div class="bg-white/5 rounded-2xl p-5 border border-white/8 hover:border-sky-500/30 transition-colors">
+        <div class="w-9 h-9 rounded-xl bg-sky-500/20 flex items-center justify-center mb-3">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 5h12M3 9h8M3 13h5" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4 class="text-white font-semibold text-sm mb-1">Activity Log</h4>
+        <p class="text-white/45 text-xs leading-relaxed">Every product change, sync, import, and price edit is logged here. Know exactly who changed what price, when products were synced, and what was imported.</p>
+      </div>
+    </div>
+
+    <!-- WooCommerce UI mockup with tabs -->
+    <div class="browser-frame max-w-3xl mx-auto">
+      <div class="browser-bar">
+        <div class="browser-dot bg-red-400"></div>
+        <div class="browser-dot bg-yellow-400"></div>
+        <div class="browser-dot bg-green-400"></div>
+        <span class="ml-3 text-white/30 text-[10px]">E-Commerce Dashboard</span>
+      </div>
+      <div class="bg-[#0d0d1a] p-4">
+        <!-- Sync bar -->
+        <div class="flex items-center justify-between mb-3 bg-[#1c1c36] rounded-xl px-4 py-2.5">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-emerald-300 text-[10px] font-medium">Connected to store</span>
+            <span class="text-white/30 text-[10px]">&bull; Last sync: 3 min ago</span>
+          </div>
+          <div class="px-3 py-1 rounded-lg bg-brand text-white text-[10px] font-medium">Sync now</div>
+        </div>
+        <!-- Tabs -->
+        <div class="flex gap-1 mb-3 overflow-x-auto pb-1">
+          <div class="px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 text-[10px] font-semibold whitespace-nowrap">Products</div>
+          <div class="px-3 py-1.5 rounded-lg text-white/40 text-[10px] whitespace-nowrap hover:bg-white/5">Orders</div>
+          <div class="px-3 py-1.5 rounded-lg text-white/40 text-[10px] whitespace-nowrap hover:bg-white/5">Statistics</div>
+          <div class="px-3 py-1.5 rounded-lg text-white/40 text-[10px] whitespace-nowrap hover:bg-white/5">Settings</div>
+          <div class="px-3 py-1.5 rounded-lg text-white/40 text-[10px] whitespace-nowrap hover:bg-white/5">Trash</div>
+          <div class="px-3 py-1.5 rounded-lg text-white/40 text-[10px] whitespace-nowrap hover:bg-white/5">Future</div>
+          <div class="px-3 py-1.5 rounded-lg text-white/40 text-[10px] whitespace-nowrap hover:bg-white/5">Activity</div>
+          <div class="px-3 py-1.5 rounded-lg bg-rose-500/20 text-rose-300 text-[10px] whitespace-nowrap font-medium flex items-center gap-1">&#9888; Low Stock <span class="bg-rose-500 rounded-full w-3.5 h-3.5 flex items-center justify-center text-[8px] text-white">3</span></div>
+        </div>
+        <!-- Products table -->
+        <div class="bg-[#1c1c36] rounded-xl overflow-hidden">
+          <div class="grid gap-2 px-4 py-2 border-b border-white/5" style="grid-template-columns:1fr 60px 70px 60px 70px">
+            <span class="text-[9px] text-white/30 uppercase tracking-wider">Product</span>
+            <span class="text-[9px] text-white/30 uppercase tracking-wider">Price</span>
+            <span class="text-[9px] text-white/30 uppercase tracking-wider">Sale</span>
+            <span class="text-[9px] text-white/30 uppercase tracking-wider">Stock</span>
+            <span class="text-[9px] text-white/30 uppercase tracking-wider">Status</span>
+          </div>
+          <div class="grid gap-2 px-4 py-2.5 border-b border-white/5 items-center" style="grid-template-columns:1fr 60px 70px 60px 70px">
+            <div>
+              <div class="text-white/80 text-[10px] font-medium">Blue Sneakers Pro</div>
+              <div class="text-white/30 text-[9px]">SKU-0041</div>
+            </div>
+            <span class="text-white/60 text-[10px]">$89.00</span>
+            <span class="text-emerald-400 text-[10px]">$69.00</span>
+            <span class="text-white/60 text-[10px]">124</span>
+            <span class="px-1.5 py-0.5 rounded-full bg-green-500/20 text-green-300 text-[9px] w-fit">Active</span>
+          </div>
+          <div class="grid gap-2 px-4 py-2.5 border-b border-white/5 items-center" style="grid-template-columns:1fr 60px 70px 60px 70px">
+            <div>
+              <div class="text-white/80 text-[10px] font-medium">Red Classic T-Shirt</div>
+              <div class="text-white/30 text-[9px]">SKU-0089</div>
+            </div>
+            <span class="text-white/60 text-[10px]">$24.99</span>
+            <span class="text-white/30 text-[10px]">—</span>
+            <span class="text-amber-400 text-[10px] font-semibold">2 &#9888;</span>
+            <span class="px-1.5 py-0.5 rounded-full bg-green-500/20 text-green-300 text-[9px] w-fit">Active</span>
+          </div>
+          <div class="grid gap-2 px-4 py-2.5 items-center" style="grid-template-columns:1fr 60px 70px 60px 70px">
+            <div>
+              <div class="text-white/80 text-[10px] font-medium">Leather Weekend Bag</div>
+              <div class="text-white/30 text-[9px]">SKU-0112</div>
+            </div>
+            <span class="text-white/60 text-[10px]">$149.00</span>
+            <span class="text-white/30 text-[10px]">—</span>
+            <span class="text-white/60 text-[10px]">37</span>
+            <span class="px-1.5 py-0.5 rounded-full bg-gray-500/20 text-gray-400 text-[9px] w-fit">Draft</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ALSO INCLUDES ═══ -->
+<section class="py-16 px-6 bg-navy">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl font-bold text-white mb-2">Also included in every deployment</h2>
+      <p class="text-white/40 text-sm">No add-ons. No surprises.</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white/5 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">&#127757;</div>
+        <div class="text-white/80 text-sm font-medium">English + French</div>
+        <div class="text-white/40 text-xs mt-1">Bilingual UI</div>
+      </div>
+      <div class="bg-white/5 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">&#127769;</div>
+        <div class="text-white/80 text-sm font-medium">Dark mode</div>
+        <div class="text-white/40 text-xs mt-1">Full dark theme</div>
+      </div>
+      <div class="bg-white/5 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">&#9855;</div>
+        <div class="text-white/80 text-sm font-medium">Accessibility</div>
+        <div class="text-white/40 text-xs mt-1">Colorblind modes</div>
+      </div>
+      <div class="bg-white/5 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">&#128196;</div>
+        <div class="text-white/80 text-sm font-medium">Excel / CSV / PDF</div>
+        <div class="text-white/40 text-xs mt-1">Export everywhere</div>
+      </div>
+      <div class="bg-white/5 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">&#128276;</div>
+        <div class="text-white/80 text-sm font-medium">Notifications</div>
+        <div class="text-white/40 text-xs mt-1">Real-time system</div>
+      </div>
+      <div class="bg-white/5 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">&#127970;</div>
+        <div class="text-white/80 text-sm font-medium">Multi-tenant</div>
+        <div class="text-white/40 text-xs mt-1">Isolated companies</div>
+      </div>
+      <div class="bg-white/5 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">&#9889;</div>
+        <div class="text-white/80 text-sm font-medium">REST API</div>
+        <div class="text-white/40 text-xs mt-1">Django backend</div>
+      </div>
+      <div class="bg-white/5 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">&#128241;</div>
+        <div class="text-white/80 text-sm font-medium">Responsive</div>
+        <div class="text-white/40 text-xs mt-1">Mobile-friendly</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section id="pricing" class="py-24 px-6 bg-off-white">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-block px-3 py-1 text-xs font-semibold text-brand bg-brand/10 rounded-full mb-4 uppercase tracking-wider">Transparent pricing</span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-navy mb-4">One-time deployment. No subscriptions.</h2>
+      <p class="text-gray-500 max-w-xl mx-auto">You pay once, you own it. Deployed on your server, branded as your product. Need something extra? We build it.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Base -->
+      <div class="bg-white rounded-2xl p-7 border border-gray-200 shadow-sm card-hover">
+        <div class="mb-6">
+          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">CRM Base</div>
+          <div class="flex items-end gap-1 mb-3">
+            <span class="text-4xl font-bold text-navy">$900</span>
+            <span class="text-gray-400 text-sm mb-1">one-time</span>
+          </div>
+          <p class="text-gray-500 text-sm">Full CRM without e-commerce. Perfect for service businesses, agencies, and teams.</p>
+        </div>
+        <ul class="space-y-2.5 mb-8 text-sm text-gray-600">
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#f3f4f6"/><path d="M5 8l2 2 4-4" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Kanban task board</li>
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#f3f4f6"/><path d="M5 8l2 2 4-4" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom module builder</li>
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#f3f4f6"/><path d="M5 8l2 2 4-4" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Calendar &amp; events</li>
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#f3f4f6"/><path d="M5 8l2 2 4-4" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Multi-company + roles</li>
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#f3f4f6"/><path d="M5 8l2 2 4-4" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Activity logs + export</li>
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#f3f4f6"/><path d="M5 8l2 2 4-4" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Deployment on your server</li>
+        </ul>
+        <a href="#contact" class="block w-full text-center py-2.5 border border-gray-200 text-gray-700 font-semibold rounded-xl hover:border-brand hover:text-brand transition-colors text-sm">Get started</a>
+      </div>
+
+      <!-- Full — popular -->
+      <div class="bg-navy rounded-2xl p-7 relative shadow-2xl card-hover border border-brand/30">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+          <span class="popular-badge px-3 py-1 text-white text-xs font-semibold rounded-full">Most popular</span>
+        </div>
+        <div class="mb-6">
+          <div class="text-xs font-semibold text-white/40 uppercase tracking-wider mb-2">CRM + E-Commerce</div>
+          <div class="flex items-end gap-1 mb-3">
+            <span class="text-4xl font-bold text-white">$1,800</span>
+            <span class="text-white/40 text-sm mb-1">one-time</span>
+          </div>
+          <p class="text-white/50 text-sm">Everything in Base plus the full WooCommerce integration module.</p>
+        </div>
+        <ul class="space-y-2.5 mb-8 text-sm text-white/80">
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="rgba(99,102,241,0.2)"/><path d="M5 8l2 2 4-4" stroke="#818cf8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Base</li>
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="rgba(99,102,241,0.2)"/><path d="M5 8l2 2 4-4" stroke="#818cf8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>WooCommerce real-time sync</li>
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="rgba(99,102,241,0.2)"/><path d="M5 8l2 2 4-4" stroke="#818cf8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Order management</li>
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="rgba(99,102,241,0.2)"/><path d="M5 8l2 2 4-4" stroke="#818cf8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Revenue statistics &amp; charts</li>
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="rgba(99,102,241,0.2)"/><path d="M5 8l2 2 4-4" stroke="#818cf8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Inventory + low-stock alerts</li>
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="rgba(99,102,241,0.2)"/><path d="M5 8l2 2 4-4" stroke="#818cf8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Bulk Excel import/export</li>
+        </ul>
+        <a href="#contact" class="block w-full text-center py-2.5 bg-brand text-white font-semibold rounded-xl hover:bg-brand-hover transition-colors text-sm">Get started</a>
+      </div>
+
+      <!-- Custom Development -->
+      <div class="bg-white rounded-2xl p-7 border border-gray-200 shadow-sm card-hover">
+        <div class="mb-6">
+          <div class="text-xs font-semibold text-indigo-400 uppercase tracking-wider mb-2">Custom Development</div>
+          <div class="flex items-end gap-1 mb-3">
+            <span class="text-4xl font-bold text-navy">On request</span>
+          </div>
+          <p class="text-gray-500 text-sm">Need a specific module or feature that isn&apos;t in the platform yet? We&apos;ll build exactly what your business requires.</p>
+        </div>
+        <ul class="space-y-2.5 mb-8 text-sm text-gray-600">
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#eef2ff"/><path d="M5 8l2 2 4-4" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom modules tailored to your workflow</li>
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#eef2ff"/><path d="M5 8l2 2 4-4" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Any feature or third-party integration</li>
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#eef2ff"/><path d="M5 8l2 2 4-4" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Fixed scope, agreed price before we start</li>
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#eef2ff"/><path d="M5 8l2 2 4-4" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Delivered &amp; deployed on your server</li>
+          <li class="flex items-center gap-2.5"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#eef2ff"/><path d="M5 8l2 2 4-4" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Available for any plan</li>
+        </ul>
+        <a href="#contact" class="block w-full text-center py-2.5 border border-indigo-200 text-indigo-600 font-semibold rounded-xl hover:border-brand hover:text-brand transition-colors text-sm">Discuss your needs</a>
+      </div>
+    </div>
+
+    <p class="text-center text-gray-400 text-sm mt-8">
+      All prices in USD. Deployment included.
+      Need a custom module or specific feature? <a href="#contact" class="text-brand hover:underline">Let&apos;s discuss the scope and price</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ═══ TECH STACK ═══ -->
+<section class="py-12 px-6 bg-gray-50 border-t border-gray-100">
+  <div class="max-w-4xl mx-auto">
+    <p class="text-center text-xs font-semibold text-gray-400 uppercase tracking-widest mb-6">Built with</p>
+    <div class="flex flex-wrap items-center justify-center gap-8">
+      <div class="flex items-center gap-2 text-gray-500 text-sm font-medium">
+        <div class="w-6 h-6 bg-[#41B883] rounded-full flex items-center justify-center"><span class="text-white text-[10px] font-bold">V</span></div>
+        Vue 3
+      </div>
+      <div class="flex items-center gap-2 text-gray-500 text-sm font-medium">
+        <div class="w-6 h-6 bg-[#06B6D4] rounded flex items-center justify-center"><span class="text-white text-[9px] font-bold">TW</span></div>
+        Tailwind CSS
+      </div>
+      <div class="flex items-center gap-2 text-gray-500 text-sm font-medium">
+        <div class="w-6 h-6 bg-[#092E20] rounded flex items-center justify-center"><span class="text-white text-[9px] font-bold">Dj</span></div>
+        Django
+      </div>
+      <div class="flex items-center gap-2 text-gray-500 text-sm font-medium">
+        <div class="w-6 h-6 bg-[#FF6900] rounded flex items-center justify-center"><span class="text-white text-[9px] font-bold">WC</span></div>
+        WooCommerce
+      </div>
+      <div class="flex items-center gap-2 text-gray-500 text-sm font-medium">
+        <div class="w-6 h-6 bg-[#2563EB] rounded flex items-center justify-center"><span class="text-white text-[9px] font-bold">PV</span></div>
+        PrimeVue
+      </div>
+      <div class="flex items-center gap-2 text-gray-500 text-sm font-medium">
+        <div class="w-6 h-6 rounded flex items-center justify-center bg-yellow-300"><span class="text-yellow-900 text-[9px] font-bold">Pi</span></div>
+        Pinia
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact" class="py-24 px-6 gradient-hero relative overflow-hidden">
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand/30 rounded-full blur-3xl"></div>
+  </div>
+  <div class="max-w-2xl mx-auto text-center relative">
+    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Ready to get started?</h2>
+    <p class="text-white/60 mb-10 text-lg">Tell us about your business and we&apos;ll set up a deployment tailored to your needs.</p>
+
+    <form id="contact-form" class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 text-left">
+      <div class="grid sm:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="block text-white/60 text-xs mb-1.5 font-medium">Your name</label>
+          <input type="text" name="name" required placeholder="John Smith" class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/30 text-sm focus:outline-none focus:border-white/50 transition-colors">
+        </div>
+        <div>
+          <label class="block text-white/60 text-xs mb-1.5 font-medium">Email address</label>
+          <input type="email" name="email" required placeholder="john@company.com" class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/30 text-sm focus:outline-none focus:border-white/50 transition-colors">
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="block text-white/60 text-xs mb-1.5 font-medium">Interested in</label>
+        <select name="package" class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white/60 text-sm focus:outline-none focus:border-white/50 transition-colors appearance-none" style="background-image:none">
+          <option value="" disabled selected class="bg-[#0d0b2e]">Choose a package...</option>
+          <option value="CRM Base — $900" class="bg-[#0d0b2e]">CRM Base &mdash; $900</option>
+          <option value="CRM + E-Commerce — $1,800" class="bg-[#0d0b2e]">CRM + E-Commerce &mdash; $1,800</option>
+          <option value="Custom module / feature development" class="bg-[#0d0b2e]">Custom module / feature development</option>
+          <option value="Other / custom requirements" class="bg-[#0d0b2e]">Other / custom requirements</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label class="block text-white/60 text-xs mb-1.5 font-medium">Tell us about your business</label>
+        <textarea name="message" placeholder="What industry are you in? How many users? Any specific requirements?" rows="3" class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/30 text-sm focus:outline-none focus:border-white/50 transition-colors resize-none"></textarea>
+      </div>
+      <div id="form-error" class="hidden mb-4 px-4 py-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-300 text-sm"></div>
+      <button id="form-btn" type="submit" class="w-full py-3 bg-brand text-white font-semibold rounded-xl hover:bg-brand-hover transition-colors text-sm">
+        Send message &rarr;
+      </button>
+    </form>
+    <p class="text-white/30 text-xs mt-4">We usually reply within 24 hours.</p>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="bg-navy py-8 px-6 border-t border-white/5">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2.5">
+      <div class="w-7 h-7 rounded-lg bg-brand flex items-center justify-center">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <rect x="1" y="1" width="4.5" height="4.5" rx="1" fill="white"/>
+          <rect x="8.5" y="1" width="4.5" height="4.5" rx="1" fill="white" opacity="0.7"/>
+          <rect x="1" y="8.5" width="4.5" height="4.5" rx="1" fill="white" opacity="0.7"/>
+          <rect x="8.5" y="8.5" width="4.5" height="4.5" rx="1" fill="white"/>
+        </svg>
+      </div>
+      <span class="font-bold text-white text-sm">WebtiBoard</span>
+    </div>
+    <p class="text-white/30 text-xs">&copy; 2025 WebtiBoard. Full-stack CRM platform.</p>
+    <div class="flex gap-6">
+      <a href="#features" class="text-white/30 hover:text-white/60 text-xs transition-colors">Features</a>
+      <a href="#pricing" class="text-white/30 hover:text-white/60 text-xs transition-colors">Pricing</a>
+      <a href="#contact" class="text-white/30 hover:text-white/60 text-xs transition-colors">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const el = document.querySelector(a.getAttribute('href'));
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ── Contact form ──────────────────────────────────────────────────────────────
+const FORMSPREE_ID = 'mdavdrpj';
+
+const form    = document.getElementById('contact-form');
+const btn     = document.getElementById('form-btn');
+const errBox  = document.getElementById('form-error');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  errBox.classList.add('hidden');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form),
+    });
+
+    if (res.ok) {
+      form.innerHTML = `
+        <div class="py-10 text-center">
+          <div class="w-14 h-14 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-4">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M6 14l5.5 5.5L22 8.5" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p class="text-white font-semibold text-lg mb-1">Message sent!</p>
+          <p class="text-white/50 text-sm">We'll reply within 24 hours.</p>
+        </div>`;
+    } else {
+      const data = await res.json().catch(() => ({}));
+      const msg = data.errors ? data.errors.map(e => e.message).join(', ') : 'Something went wrong. Please try again.';
+      errBox.textContent = msg;
+      errBox.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = 'Send message →';
+    }
+  } catch {
+    errBox.textContent = 'Network error. Please check your connection and try again.';
+    errBox.classList.remove('hidden');
+    btn.disabled = false;
+    btn.textContent = 'Send message →';
+  }
+});
+</script>
+</body>
+</html>
